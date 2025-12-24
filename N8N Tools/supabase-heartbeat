@@ -1,0 +1,184 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{}]
+        }
+      },
+      "name": "Schedule (5 Days)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [-464, -112],
+      "id": "9e2dfb2e-3bdb-4c14-b278-19d0913205df"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "1a9cd2a8-8fad-45aa-be0e-1f4ecdb7a1ae",
+              "leftValue": "={{ $('Heartbeat').first().json.id ? $('Heartbeat').first().json.id.toString() : '' }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "5c1a4c78-ede7-458e-b637-a192a963168b",
+              "leftValue": "={{ $('KlipAI Heartbeat').first().json.id ? $('KlipAI Heartbeat').first().json.id.toString() : '' }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [144, -112],
+      "id": "c3c54d7b-dc11-4c6c-9bc6-2ec8e59d4fe2",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "chatId": "REDACTED",
+        "text": "Heartbeat Schedule: Warning, Supabase might be inactive!!!",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [416, -224],
+      "id": "e9118248-2391-4d36-929d-f24599e8bccb",
+      "name": "Send a text message",
+      "webhookId": "REDACTED",
+      "credentials": {
+        "telegramApi": {
+          "id": "REDACTED",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "REDACTED",
+        "text": "Heartbeat Schedule: Polled Supabase successfully!",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [576, -16],
+      "id": "a1be8c13-8176-4b4d-8131-f1a22e2be0c7",
+      "name": "Send a text message1",
+      "webhookId": "REDACTED",
+      "credentials": {
+        "telegramApi": {
+          "id": "REDACTED",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [416, -16],
+      "id": "d998c6c3-8880-494c-bd2b-c7dcc7c29f9f",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "REDACTED",
+        "limit": 1
+      },
+      "name": "KlipAI Heartbeat",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [-256, -16],
+      "id": "a0c447c9-aeb7-4d94-9981-5f9bd645e723",
+      "alwaysOutputData": false,
+      "credentials": {
+        "supabaseApi": {
+          "id": "REDACTED",
+          "name": "Supabase KlipAI"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "REDACTED",
+        "limit": 1
+      },
+      "name": "Heartbeat",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [-256, -224],
+      "id": "9ba92b2a-52f9-499d-97ab-792249eb868e",
+      "alwaysOutputData": false,
+      "credentials": {
+        "supabaseApi": {
+          "id": "REDACTED",
+          "name": "Supabase"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [-32, -112],
+      "id": "ae37aa30-e9f0-4484-b7b3-45d57675d507",
+      "name": "Merge"
+    }
+  ],
+  "connections": {
+    "Schedule (5 Days)": {
+      "main": [
+        [
+          { "node": "Heartbeat", "type": "main", "index": 0 },
+          { "node": "KlipAI Heartbeat", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [{ "node": "Send a text message", "type": "main", "index": 0 }],
+        [{ "node": "Limit", "type": "main", "index": 0 }]
+      ]
+    },
+    "Limit": {
+      "main": [[{ "node": "Send a text message1", "type": "main", "index": 0 }]]
+    },
+    "KlipAI Heartbeat": {
+      "main": [[{ "node": "Merge", "type": "main", "index": 1 }]]
+    },
+    "Heartbeat": {
+      "main": [[{ "node": "Merge", "type": "main", "index": 0 }]]
+    },
+    "Merge": {
+      "main": [[{ "node": "If", "type": "main", "index": 0 }]]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "REDACTED"
+  }
+}
