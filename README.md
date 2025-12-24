@@ -10,6 +10,7 @@ This archive will consist of free agentic workflows in a plug-and-play format. F
   - [RAG and Research Agent](https://github.com/jackvandervall/Agentic-Archive/blob/main/N8N%20Agents/RAG%20and%20Research%20Agent.json) (new)
 - N8N Tools
   - [Sonar Web Search Perplexity](https://github.com/jackvandervall/Agentic-Archive/blob/main/N8N%20Tools/Sonar%20Web%20Search%20(Perplexity%20API).json)
+  - [Supabase Heartbeat Scheduler](https://github.com/jackvandervall/Agentic-Archive/blob/main/N8N%20Tools/supabase-heartbeat.json)
 
 
 ### Multi-Model Research Agent
@@ -52,7 +53,13 @@ A tool that can be accessed by AI agents to perform web searches using the Perpl
 
 ![Image](https://github.com/user-attachments/assets/45407c14-c77c-46f1-9362-4a60ac77c7d9)
 
+### Supabase Heartbeat
+A tool that can allows you to schedule poll requests to your Supabase database in order to keep it from being shut down after 7 days of inactivity. This can be used in contact page databases for example.
+
+![Image](https://github.com/user-attachments/assets/ad0ee17c-623f-46e6-8ab4-68e965001353)
+
 
 ## Connect with Me
 **LinkedIn:** [Jack van der Vall](https://www.linkedin.com/in/jackvandervall)  
 **GitHub:** [jackvandervall](https://github.com/jackvandervall)  
+
