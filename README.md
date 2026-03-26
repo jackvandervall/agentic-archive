@@ -1,6 +1,6 @@
 # Agentic-Archive
 
-> **Note:** This repository is preserved as a technical showcase for educational purposes. It represents the "hard-coded" era of agentic engineering (Early 2025).
+> **Note:** This repository is preserved as a technical showcase for educational purposes and was developed before the era of standardized agentic protocols (MCP).
 
 ## Description
 This repository contains a collection of agentic workflows built in early 2025 for data analysis and research purposes.
